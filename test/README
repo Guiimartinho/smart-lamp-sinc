@@ -1,0 +1,91 @@
+# ESP32 Smart Lamp MQTT-OTA-APP-SYNC
+
+This project has the idea of two lampshades (RGB Led Strip) having the same color, that is, through MQTT, when a touch button is activated and chooses the color of one lampshade, the other synchronizes, receiving the mqtt payload from the combination of 0- 255 for each LED (R, G and B) and updates the color.
+
+This project will also perform an Over-The-Air (OTA) update to an ESP32 device using a binary file stored in Amazon S3.
+
+## Features
+
+- FreeRTOS tasks
+- Queue protection Led task
+- OTA updates from a binary hosted on Amazon S3
+- Automated WiFi Multi connection
+- MQTT message publishing and subscription
+- Possible Integration with Amazon AWS IoT or any Brocker MQTT
+- Device control and monitoring via MQTT
+- LED feedback for device status
+- Feature: APP control color
+
+## Prerequisites
+
+To use this project, you will need:
+
+- An Amazon AWS account with an S3 bucket set up
+- The ESP32-C3 must be connected to the internet
+- PlatformIO or Arduino IDE setup for ESP32-C3 development
+
+## Setup
+
+### Step 1: Amazon S3 Configuration
+
+1. Upload your firmware binary file to your S3 bucket.
+2. Make the binary file public or set the appropriate permissions.
+3. Note the public URL of the binary file.
+
+### Step 2: Project Configuration
+
+1. Clone the project repository to your local machine.
+2. Open the project using PlatformIO.
+
+### Step 3: Update WiFi Settings
+
+Edit the `config.h` file to include your WiFi network credentials:
+
+```cpp
+#define WIFI_SSID_1 "XXXXX" // Substitua pelo SSID real
+#define WIFI_PASS_1 "XXXXX" // Substitua pela senha real
+
+#define WIFI_SSID_2 "XXXXX"    // Substitua pelo SSID real
+#define WIFI_PASS_2 "XXXXX"    // Substitua pela senha real
+
+```
+### Step 4: MQTT and AWS IoT Settings
+Modify the config.h file to include your MQTT broker and AWS IoT settings:
+
+```cpp
+#define MQTT_PROTECTED
+// Definições do MQTT
+#define MQTT_BROKER "broker.hivemq.com" // Substitua pelo endereço do broker MQTT
+#define MQTT_PORT 1883 // Porta padrão para MQTT
+
+#define MQTT_USERNAME ""
+#define MQTT_PASSWORD ""
+
+//#define DEVICE_ID ""
+#define PAIR_DEVICE_ID "esp32-c3-abajur-NAME"
+
+// Tópicos MQTT
+#define MQTT_TOPIC_ROOT "XXXXXXXXX/CCCCCCCC/WWWWW" // Substitua pelo tópico raiz
+
+```
+
+### Step 5: OTA Configuration
+In the ota_lamp.h file, set the parameters for OTA updates:
+
+```cpp
+String host = "your_s3_bucket_name.s3.amazonaws.com";
+int port = 80; // Use 443 for HTTPS
+String bin = "/your_firmware_file_path.bin";
+```
+
+### Usage
+
+The smart lamp connects to the specified WiFi network and listens for MQTT messages to control its operations, including initiating OTA updates. It can be remotely monitored and controlled through MQTT commands.
+
+### Contributing
+
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request with your improvements.
+
+
+### Disclaimer
+This project is provided "as-is" without any warranty. Use it at your own risk. Always test thoroughly in a controlled environment before any production use.
