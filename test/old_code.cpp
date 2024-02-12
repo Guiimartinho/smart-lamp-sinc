@@ -19,11 +19,11 @@
 
 /*********** WIFI **************/
 
-#define WIFI_SSID_1 "Intruso-2.4"
-#define WIFI_PASS_1 "25973196gui"
+#define WIFI_SSID_1 "XXXX"
+#define WIFI_PASS_1 "XXXX"
 
-#define WIFI_SSID_2 "Antenor"
-#define WIFI_PASS_2 "21092109"
+#define WIFI_SSID_2 "XXXX"
+#define WIFI_PASS_2 "XXXX"
 
 /*********** MQTT **************/
 
